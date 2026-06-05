@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julalikari Council Website — Stakeholder Survey</title>
+<style>
+:root{--red:#C0272D;--ochre:#C47D2B;--dark:#1a1a1a;--mid:#555;--light:#f7f4f0;--border:#d0c9c0;--radius:8px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--light);color:var(--dark);font-size:16px;line-height:1.7;}
+header{background:var(--red);color:white;padding:24px 20px;text-align:center;}
+header h1{font-size:1.35rem;font-weight:700;margin-bottom:4px;}
+header p{font-size:0.93rem;opacity:0.9;}
+.container{max-width:800px;margin:0 auto;padding:24px 16px 60px;}
+.intro-box{background:white;border-left:5px solid var(--red);border-radius:var(--radius);padding:20px 24px;margin-bottom:24px;}
+.intro-box p{margin-bottom:8px;}
+.role-select{background:white;border:2px solid var(--red);border-radius:var(--radius);padding:20px 24px;margin-bottom:24px;}
+.role-select h2{color:var(--red);font-size:1rem;margin-bottom:12px;}
+.role-btn{display:block;width:100%;padding:14px 18px;margin-bottom:10px;background:var(--light);border:2px solid var(--border);border-radius:var(--radius);font-size:1rem;cursor:pointer;text-align:left;transition:all 0.15s;}
+.role-btn:hover,.role-btn.selected{border-color:var(--red);background:#fdf0f0;font-weight:600;}
+.about-you{background:white;border-radius:var(--radius);padding:20px 24px;margin-bottom:20px;border-top:4px solid var(--ochre);}
+.about-you h2{color:var(--ochre);font-size:1rem;margin-bottom:14px;}
+.section{background:white;border-radius:var(--radius);padding:24px;margin-bottom:20px;border-top:4px solid var(--red);}
+.section h2{color:var(--red);font-size:1.05rem;margin-bottom:6px;padding-bottom:10px;border-bottom:1px solid var(--border);}
+.section-intro{font-size:0.93rem;color:var(--mid);margin-bottom:16px;padding-top:8px;}
+.q-block{margin-bottom:22px;}
+.q-label{font-weight:700;margin-bottom:6px;font-size:0.97rem;display:block;}
+.hint{font-size:0.85rem;color:#777;font-style:italic;margin-bottom:8px;display:block;}
+input[type=text],textarea,input[type=number]{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--radius);font-size:0.95rem;font-family:inherit;background:#fafaf8;}
+input[type=text]:focus,textarea:focus,input[type=number]:focus{border-color:var(--red);outline:none;background:white;}
+input[type=number]{width:70px;}
+textarea{min-height:72px;resize:vertical;}
+.check-group{display:flex;flex-direction:column;gap:6px;margin-top:8px;}
+.check-item{display:flex;align-items:flex-start;gap:10px;font-size:0.95rem;cursor:pointer;padding:7px 10px;border-radius:5px;border:1px solid transparent;}
+.check-item:hover{background:#fdf0f0;border-color:#f0d0d0;}
+.check-item input{margin-top:2px;flex-shrink:0;accent-color:var(--red);width:16px;height:16px;}
+.yn-group{display:flex;gap:10px;margin-top:8px;flex-wrap:wrap;}
+.yn-group label{display:flex;align-items:center;gap:6px;font-size:0.93rem;cursor:pointer;padding:8px 14px;border:1.5px solid var(--border);border-radius:var(--radius);background:white;}
+.yn-group label:hover{border-color:var(--red);background:#fdf0f0;}
+.yn-group input{accent-color:var(--red);width:15px;height:15px;flex-shrink:0;}
+.star-rating{display:flex;gap:4px;margin-top:6px;}
+.star{font-size:1.9rem;cursor:pointer;color:#ddd;line-height:1;transition:color 0.1s;}
+.star.lit{color:#f0a500;}
+.star-labels{display:flex;justify-content:space-between;font-size:0.78rem;color:#999;margin-top:3px;}
+.svc-block{background:#fafaf8;border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:20px;}
+.svc-block h4{font-size:1rem;color:var(--red);margin-bottom:8px;}
+.svc-desc{font-size:0.88rem;color:var(--mid);background:#f0ede8;padding:10px 14px;border-radius:5px;border-left:3px solid var(--ochre);margin-bottom:10px;}
+.svc-bullets{font-size:0.85rem;color:var(--mid);margin:0 0 14px 18px;}
+.svc-bullets li{margin-bottom:3px;}
+.rank-grid{display:grid;gap:8px;margin-top:10px;}
+.rank-row{display:flex;align-items:center;gap:12px;background:#fafaf8;border:1px solid var(--border);border-radius:6px;padding:9px 14px;}
+.rank-row label{flex:1;font-size:0.93rem;}
+.page-table{width:100%;border-collapse:collapse;font-size:0.88rem;margin-top:10px;}
+.page-table th{background:#f0ede8;padding:9px 12px;text-align:left;border:1px solid var(--border);font-weight:700;}
+.page-table td{padding:9px 12px;border:1px solid var(--border);vertical-align:top;}
+.page-table tr:nth-child(even) td{background:#fafaf8;}
+.tagline-box{background:#fdf8f0;border:1px solid var(--ochre);border-radius:var(--radius);padding:14px 18px;margin-bottom:14px;text-align:center;}
+.tagline-warumungu{font-size:1rem;font-weight:700;font-style:italic;}
+.tagline-translation{font-size:0.87rem;color:var(--mid);margin-top:4px;}
+.submit-btn{display:inline-block;padding:13px 28px;background:var(--red);color:white;border:none;border-radius:var(--radius);font-size:0.97rem;font-weight:700;cursor:pointer;}
+.submit-btn:hover{background:#a01e23;}
+.submit-btn:disabled{background:#999;cursor:not-allowed;}
+.nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:16px;border-top:1px solid #e5ddd4;}
+.nav-counter{font-size:0.85rem;color:#aaa;}
+.nav-btns{display:flex;gap:10px;}
+.btn-back{padding:10px 18px;background:#fff;border:2px solid var(--red);color:var(--red);border-radius:var(--radius);font-size:0.93rem;font-weight:600;cursor:pointer;}
+.btn-next{padding:10px 22px;background:var(--red);border:none;color:#fff;border-radius:var(--radius);font-size:0.93rem;font-weight:600;cursor:pointer;}
+.msg{padding:16px 20px;border-radius:var(--radius);margin-bottom:20px;font-weight:600;display:none;}
+.msg.success{background:#e8f5e9;color:#2e7d32;border:1px solid #a5d6a7;display:block;}
+.msg.error{background:#ffebee;color:#c62828;border:1px solid #ef9a9a;display:block;}
+footer{text-align:center;padding:24px;font-size:0.82rem;color:#aaa;}
+@media(max-width:520px){.yn-group{flex-direction:column;}.page-table{font-size:0.8rem;}.star{font-size:1.5rem;}}
+</style>
+</head>
+<body>
+<header>
+  <h1>&#127760; Julalikari Council &mdash; New Website Survey</h1>
+  <p>Your input will shape the new julalikari.org.au &mdash; thank you for taking part.</p>
+</header>
+<div class="container">
+  <div class="intro-box">
+    <p>We are building a new Julalikari website. Before we start, we want to hear from you.</p>
+    <p>This survey will take about <strong>10&ndash;15 minutes</strong>. There are no right or wrong answers.</p>
+    <p>Your ideas will help us build a website that works for everyone in our community.</p>
+  </div>
+  <div id="msg" class="msg"></div>
+
+  <div id="roleBox" class="role-select">
+    <h2>First &mdash; who are you?</h2>
+    <p style="margin-bottom:14px;font-size:0.93rem;">Please select your role. The survey will ask you different questions depending on your role.</p>
+    <button type="button" class="role-btn" id="btn-board">&#127963;&#65039; &nbsp; Board Member</button>
+    <button type="button" class="role-btn" id="btn-staff">&#128119; &nbsp; Staff Member</button>
+  </div>
+
+  <div id="aboutYou" style="display:none;" class="about-you">
+    <h2>About you</h2>
+    <div class="q-block">
+      <label class="q-label" for="f-name">Your name <span style="font-weight:400;color:#aaa;">(optional)</span></label>
+      <input type="text" id="f-name" placeholder="Write your name here (you do not have to)">
+    </div>
+    <div class="q-block">
+      <label class="q-label" for="f-email">Your email <span style="font-weight:400;color:#aaa;">(optional &mdash; for follow-up questions only)</span></label>
+      <input type="text" id="f-email" placeholder="Write your email here">
+    </div>
+  </div>
+
+  <!-- ═══ BOARD SURVEY ═══ -->
+
+  <div id="board-s1" style="display:none;" class="section">
+    <h2>&#127912; Section 1 &mdash; Look and Feel</h2>
+    <p class="section-intro">The way a website looks is important. It should feel like Julalikari &mdash; strong, proud and welcoming.</p>
+
+    <div class="q-block">
+      <span class="q-label">1.1 &nbsp; Colours &mdash; Please rate how important each colour is for the new website</span>
+      <div style="margin-top:12px;">
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:600;margin-bottom:5px;">Red (JCAC Red &mdash; our main colour)</div>
+          <div class="star-rating" id="b-col-red-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div>
+          <div class="star-labels"><span>Not important</span><span>Very important</span></div>
+          <input type="hidden" id="b-col-red" value="0">
+        </div>
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:600;margin-bottom:5px;">Earth tones &mdash; ochre, brown, sandy colours (from dot art and country)</div>
+          <div class="star-rating" id="b-col-earth-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div>
+          <div class="star-labels"><span>Not important</span><span>Very important</span></div>
+          <input type="hidden" id="b-col-earth" value="0">
+        </div>
+        <div>
+          <div style="font-weight:600;margin-bottom:5px;">Black and white (clean and simple)</div>
+          <div class="star-rating" id="b-col-bw-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div>
+          <div class="star-labels"><span>Not important</span><span>Very important</span></div>
+          <input type="hidden" id="b-col-bw" value="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <label class="q-label" for="b-colours-other">1.2 &nbsp; Are there other colours you think should be used?</label>
+      <textarea id="b-colours-other" placeholder="Write your ideas here..."></textarea>
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">1.3 &nbsp; Photos and Images &mdash; What kinds of images should be on the new website? (Tick all that apply)</span>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" class="b-images" value="Photos of our community and people"> Photos of our community and people</label>
+        <label class="check-item"><input type="checkbox" class="b-images" value="Photos of our staff and programs"> Photos of our staff and programs</label>
+        <label class="check-item"><input type="checkbox" class="b-images" value="Dot art and cultural artwork"> Dot art and cultural artwork</label>
+        <label class="check-item"><input type="checkbox" class="b-images" value="Photos of country and landscape"> Photos of country and landscape (Warumungu country)</label>
+        <label class="check-item"><input type="checkbox" class="b-images" value="Photos of events and activities"> Photos of events and activities</label>
+        <label class="check-item"><input type="checkbox" class="b-images" value="The JCAC logo and branding"> The JCAC logo and branding</label>
+      </div>
+      <input type="text" id="b-images-other" placeholder="Other ideas for images..." style="margin-top:10px;width:100%;">
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">1.4 &nbsp; The current website tagline</span>
+      <div class="tagline-box">
+        <div class="tagline-warumungu">"Anyinginyi Manu Anyula Parkamarri Wilyangka"</div>
+        <div class="tagline-translation">Our Country, Us Mob, Hold it Strongly</div>
+      </div>
+      <span class="q-label" style="font-weight:600;">Should the new website keep this tagline?</span>
+      <div class="yn-group">
+        <label><input type="radio" name="b-tagline" value="Yes, keep it"> Yes, keep it</label>
+        <label><input type="radio" name="b-tagline" value="No, change it"> No, change it</label>
+        <label><input type="radio" name="b-tagline" value="Not sure"> Not sure</label>
+      </div>
+      <div style="margin-top:12px;">
+        <label class="q-label" for="b-tagline-suggest" style="font-weight:400;font-style:italic;">If you said change it &mdash; what would you suggest?</label>
+        <textarea id="b-tagline-suggest" placeholder="Your suggestion..."></textarea>
+      </div>
+    </div>
+
+    <div class="nav-bar"><span class="nav-counter">Section 1 of 4</span><div class="nav-btns"><button type="button" class="btn-next" onclick="goTo('board',1)">Next &#8594;</button></div></div>
+  </div>
+
+  <div id="board-s2" style="display:none;" class="section">
+    <h2>&#128196; Section 2 &mdash; What Should Be On the Website?</h2>
+    <p class="section-intro">The current website has some information about Julalikari. We want to know what you think should be included.</p>
+
+    <div class="q-block">
+      <span class="q-label">2.1 &nbsp; The current website includes these pages. Should we keep them?</span>
+      <div style="overflow-x:auto;margin-top:10px;">
+        <table class="page-table">
+          <thead><tr><th>Page</th><th>What it is</th><th>Keep it?</th><th>Your comments</th></tr></thead>
+          <tbody>
+            <tr><td>Our Story</td><td>Who we are and our history</td><td><div class="yn-group" style="flex-direction:column;gap:5px;"><label><input type="radio" name="p-story" value="Yes"> Yes</label><label><input type="radio" name="p-story" value="No"> No</label><label><input type="radio" name="p-story" value="Not sure"> Not sure</label></div></td><td><input type="text" id="p-story-note" placeholder="Comments..."></td></tr>
+            <tr><td>What We Do</td><td>Our services overview</td><td><div class="yn-group" style="flex-direction:column;gap:5px;"><label><input type="radio" name="p-whatwedo" value="Yes"> Yes</label><label><input type="radio" name="p-whatwedo" value="No"> No</label><label><input type="radio" name="p-whatwedo" value="Not sure"> Not sure</label></div></td><td><input type="text" id="p-whatwedo-note" placeholder="Comments..."></td></tr>
+            <tr><td>Housing Services</td><td>Information about housing support</td><td><div class="yn-group" style="flex-direction:column;gap:5px;"><label><input type="radio" name="p-housing" value="Yes"> Yes</label><label><input type="radio" name="p-housing" value="No"> No</label><label><input type="radio" name="p-housing" value="Not sure"> Not sure</label></div></td><td><input type="text" id="p-housing-note" placeholder="Comments..."></td></tr>
+            <tr><td>Julalikari LDM</td><td>Local Decision Making</td><td><div class="yn-group" style="flex-direction:column;gap:5px;"><label><input type="radio" name="p-ldm" value="Yes"> Yes</label><label><input type="radio" name="p-ldm" value="No"> No</label><label><input type="radio" name="p-ldm" value="Not sure"> Not sure</label></div></td><td><input type="text" id="p-ldm-note" placeholder="Comments..."></td></tr>
+            <tr><td>News and Events</td><td>Community news and updates</td><td><div class="yn-group" style="flex-direction:column;gap:5px;"><label><input type="radio" name="p-news" value="Yes"> Yes</label><label><input type="radio" name="p-news" value="No"> No</label><label><input type="radio" name="p-news" value="Not sure"> Not sure</label></div></td><td><input type="text" id="p-news-note" placeholder="Comments..."></td></tr>
+            <tr><td>Contact Us</td><td>How to get in touch</td><td><div class="yn-group" style="flex-direction:column;gap:5px;"><label><input type="radio" name="p-contact" value="Yes"> Yes</label><label><input type="radio" name="p-contact" value="No"> No</label><label><input type="radio" name="p-contact" value="Not sure"> Not sure</label></div></td><td><input type="text" id="p-contact-note" placeholder="Comments..."></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">2.2 &nbsp; What NEW pages or information should we add? (Tick all that apply)</span>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Employment — job vacancies"> Employment &mdash; job vacancies at Julalikari</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Annual Reports and publications"> Annual Reports and publications</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Board information and governance"> Board information and governance</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Night Patrol services"> Night Patrol services</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Community programs and events calendar"> Community programs and events calendar</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Health and wellbeing programs"> Health and wellbeing programs</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Children and family services"> Children and family services</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Employment and training programs"> Employment and training programs</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Infrastructure and municipal services"> Infrastructure and municipal services</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="CDEP / Work Programs"> CDEP / Work Programs</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Advocacy and rights information"> Advocacy and rights information</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Language and culture resources"> Language and culture resources</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Online forms (e.g. housing applications)"> Online forms (e.g. housing applications)</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Links to other community services"> Links to other community services</label>
+        <label class="check-item"><input type="checkbox" class="b-new-pages" value="Frequently Asked Questions (FAQ)"> Frequently Asked Questions (FAQ)</label>
+      </div>
+      <textarea id="b-new-pages-other" placeholder="Other ideas — what else should be on the website?" style="margin-top:10px;"></textarea>
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">2.3 &nbsp; Who should the website talk to most? (Tick your top 3)</span>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" class="b-audience" value="Community members in Tennant Creek"> Community members in Tennant Creek</label>
+        <label class="check-item"><input type="checkbox" class="b-audience" value="People living in outstations"> People living in outstations</label>
+        <label class="check-item"><input type="checkbox" class="b-audience" value="Government and funding partners"> Government and funding partners</label>
+        <label class="check-item"><input type="checkbox" class="b-audience" value="Job seekers and potential staff"> Job seekers and potential staff</label>
+        <label class="check-item"><input type="checkbox" class="b-audience" value="Researchers and journalists"> Researchers and journalists</label>
+        <label class="check-item"><input type="checkbox" class="b-audience" value="Tourists and visitors"> Tourists and visitors</label>
+        <label class="check-item"><input type="checkbox" class="b-audience" value="JCAC Board and members"> JCAC Board and members</label>
+        <label class="check-item"><input type="checkbox" class="b-audience" value="Other service providers"> Other service providers</label>
+      </div>
+    </div>
+
+    <div class="nav-bar"><span class="nav-counter">Section 2 of 4</span><div class="nav-btns"><button type="button" class="btn-back" onclick="goTo('board',0)">&#8592; Back</button><button type="button" class="btn-next" onclick="goTo('board',2)">Next &#8594;</button></div></div>
+  </div>
+
+  <div id="board-s3" style="display:none;" class="section">
+    <h2>&#127807; Section 3 &mdash; Culture and Identity</h2>
+    <p class="section-intro">It is important that the new website respects and reflects our culture. We would like your views on this.</p>
+
+    <div class="q-block">
+      <span class="q-label">3.1 &nbsp; Is the information on the current website accurate and appropriate?</span>
+      <span class="hint">Visit julalikari.org.au or refer to the printed summary provided.</span>
+      <div style="margin-top:10px;">
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:600;margin-bottom:5px;">The information about our history and story is accurate</div>
+          <div class="star-rating" id="b-acc-history-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div>
+          <div class="star-labels"><span>Not accurate</span><span>Very accurate</span></div>
+          <input type="hidden" id="b-acc-history" value="0">
+        </div>
+        <div style="margin-bottom:16px;">
+          <div style="font-weight:600;margin-bottom:5px;">The information about what we do is accurate</div>
+          <div class="star-rating" id="b-acc-services-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div>
+          <div class="star-labels"><span>Not accurate</span><span>Very accurate</span></div>
+          <input type="hidden" id="b-acc-services" value="0">
+        </div>
+        <div>
+          <div style="font-weight:600;margin-bottom:5px;">The website feels culturally appropriate and respectful</div>
+          <div class="star-rating" id="b-acc-culture-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div>
+          <div class="star-labels"><span>Disagree</span><span>Strongly agree</span></div>
+          <input type="hidden" id="b-acc-culture" value="0">
+        </div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <label class="q-label" for="b-culture-missing">3.2 &nbsp; What is missing or wrong on the current website from a cultural perspective?</label>
+      <textarea id="b-culture-missing" placeholder="Write your thoughts here..."></textarea>
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">3.3 &nbsp; Cultural content &mdash; Should the new website include these? (Tick all that apply)</span>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" class="b-culture-inc" value="Warumungu language words and phrases"> Warumungu language words and phrases</label>
+        <label class="check-item"><input type="checkbox" class="b-culture-inc" value="Acknowledgement of Country"> Acknowledgement of Country</label>
+        <label class="check-item"><input type="checkbox" class="b-culture-inc" value="Information about traditional owners"> Information about traditional owners</label>
+        <label class="check-item"><input type="checkbox" class="b-culture-inc" value="Cultural protocols and guidance"> Cultural protocols and guidance</label>
+        <label class="check-item"><input type="checkbox" class="b-culture-inc" value="Stories and oral history (with permission)"> Stories and oral history (with permission)</label>
+        <label class="check-item"><input type="checkbox" class="b-culture-inc" value="Cultural artwork and imagery"> Cultural artwork and imagery</label>
+        <label class="check-item"><input type="checkbox" class="b-culture-inc" value="Links to Nyinkka Nyunyu Art and Culture Centre"> Links to Nyinkka Nyunyu Art &amp; Culture Centre</label>
+        <label class="check-item"><input type="checkbox" class="b-culture-inc" value="Information about Warumungu culture"> Information about Warumungu culture</label>
+        <label class="check-item"><input type="checkbox" class="b-culture-inc" value="Cultural events and ceremonies (appropriate ones)"> Cultural events and ceremonies (appropriate ones)</label>
+      </div>
+      <textarea id="b-culture-other" placeholder="Other cultural content ideas..." style="margin-top:10px;"></textarea>
+    </div>
+
+    <div class="q-block">
+      <label class="q-label" for="b-culture-avoid">3.4 &nbsp; Are there things that should NOT be on the website for cultural reasons?</label>
+      <textarea id="b-culture-avoid" placeholder="Please share any concerns here..."></textarea>
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">3.5 &nbsp; Language &mdash; Should the new website be available in other languages?</span>
+      <div class="yn-group">
+        <label><input type="radio" name="b-language" value="English only"> English only</label>
+        <label><input type="radio" name="b-language" value="English + Warumungu"> English + Warumungu</label>
+        <label><input type="radio" name="b-language" value="English + other languages"> English + other languages</label>
+      </div>
+      <input type="text" id="b-language-other" placeholder="Which other languages?" style="margin-top:10px;width:100%;">
+    </div>
+
+    <div class="nav-bar"><span class="nav-counter">Section 3 of 4</span><div class="nav-btns"><button type="button" class="btn-back" onclick="goTo('board',1)">&#8592; Back</button><button type="button" class="btn-next" onclick="goTo('board',3)">Next &#8594;</button></div></div>
+  </div>
+
+  <div id="board-s4" style="display:none;" class="section">
+    <h2>&#128172; Section 4 &mdash; Your Final Thoughts</h2>
+
+    <div class="q-block">
+      <span class="q-label">4.1 &nbsp; Overall, how important is the new website to Julalikari?</span>
+      <div class="star-rating" id="b-importance-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div>
+      <div class="star-labels"><span>Not important</span><span>Very important</span></div>
+      <input type="hidden" id="b-importance" value="0">
+    </div>
+
+    <div class="q-block">
+      <label class="q-label" for="b-final">4.2 &nbsp; Anything else you would like to tell us?</label>
+      <textarea id="b-final" placeholder="Write anything else here..."></textarea>
+    </div>
+
+    <div class="nav-bar"><span class="nav-counter">Section 4 of 4</span><div class="nav-btns"><button type="button" class="btn-back" onclick="goTo('board',2)">&#8592; Back</button><button type="button" class="submit-btn" id="board-submit">&#10003; &nbsp; Submit Board Member Survey</button></div></div>
+  </div>
+
+  <!-- ═══ STAFF SURVEY ═══ -->
+
+  <div id="staff-s1" style="display:none;" class="section">
+    <h2>&#128100; Section 1 &mdash; About You</h2>
+    <p class="section-intro">As a staff member, you know our services better than anyone. Your input is very important. This survey has 5 sections and should take about 15&ndash;20 minutes.</p>
+
+    <div class="q-block">
+      <label class="q-label" for="s-jobtitle">1.1 &nbsp; What is your job title?</label>
+      <input type="text" id="s-jobtitle" placeholder="Write your job title here...">
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">1.2 &nbsp; What team or program do you work in?</span>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" class="s-team" value="Housing Services"> &#127968; Housing Services</label>
+        <label class="check-item"><input type="checkbox" class="s-team" value="Night Patrol"> &#128737; Night Patrol</label>
+        <label class="check-item"><input type="checkbox" class="s-team" value="Community Services"> &#129309; Community Services</label>
+        <label class="check-item"><input type="checkbox" class="s-team" value="Employment & Training"> &#127891; Employment &amp; Training</label>
+        <label class="check-item"><input type="checkbox" class="s-team" value="Health & Wellbeing"> &#10084; Health &amp; Wellbeing</label>
+        <label class="check-item"><input type="checkbox" class="s-team" value="Infrastructure & Municipal"> &#128667; Infrastructure &amp; Municipal</label>
+        <label class="check-item"><input type="checkbox" class="s-team" value="CDEP / Work Programs"> &#128295; CDEP / Work Programs</label>
+        <label class="check-item"><input type="checkbox" class="s-team" value="Children & Family"> &#128066; Children &amp; Family</label>
+        <label class="check-item"><input type="checkbox" class="s-team" value="Governance & Advocacy"> &#9878; Governance &amp; Advocacy</label>
+        <label class="check-item"><input type="checkbox" class="s-team" value="Administration / Finance"> Administration / Finance</label>
+        <label class="check-item"><input type="checkbox" class="s-team" value="Management / Leadership"> Management / Leadership</label>
+      </div>
+      <input type="text" id="s-team-other" placeholder="Other team or program..." style="margin-top:10px;width:100%;">
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">1.3 &nbsp; How long have you worked at Julalikari?</span>
+      <div class="yn-group">
+        <label><input type="radio" name="s-tenure" value="Less than 1 year"> Less than 1 year</label>
+        <label><input type="radio" name="s-tenure" value="1-3 years"> 1&ndash;3 years</label>
+        <label><input type="radio" name="s-tenure" value="3-5 years"> 3&ndash;5 years</label>
+        <label><input type="radio" name="s-tenure" value="More than 5 years"> More than 5 years</label>
+      </div>
+    </div>
+
+    <div class="nav-bar"><span class="nav-counter">Section 1 of 5</span><div class="nav-btns"><button type="button" class="btn-next" onclick="goTo('staff',1)">Next &#8594;</button></div></div>
+  </div>
+
+  <div id="staff-s2" style="display:none;" class="section">
+    <h2>&#128203; Section 2 &mdash; Services Register</h2>
+    <p class="section-intro">We need to make sure the new website has correct and up-to-date information about every Julalikari service. Please review the services below and answer for <strong>your service area</strong>. Skip services that are not yours.</p>
+
+    <div class="svc-block">
+      <h4>&#127968; Housing Services</h4>
+      <p class="svc-desc">Julalikari manages community housing across Tennant Creek and surrounding outstations. Our housing team handles tenancy management, property maintenance, and works to improve housing conditions for Aboriginal families.</p>
+      <ul class="svc-bullets"><li>Tenancy management</li><li>Property maintenance</li><li>Housing applications</li><li>Outstation housing support</li></ul>
+      <div class="q-block"><span class="q-label">Is this information correct?</span><div class="yn-group"><label><input type="radio" name="svc-housing" value="Yes, it is correct"> Yes, correct</label><label><input type="radio" name="svc-housing" value="Some of it is wrong"> Some is wrong</label><label><input type="radio" name="svc-housing" value="Most of it needs updating"> Needs updating</label></div></div>
+      <div class="q-block"><label class="q-label" for="svc-housing-who">Who is responsible? (Name and job title)</label><input type="text" id="svc-housing-who" placeholder="Name and job title..."></div>
+      <div class="q-block"><label class="q-label" for="svc-housing-desc">What should the website say about this service? (2&ndash;4 sentences)</label><textarea id="svc-housing-desc" placeholder="Write your suggested description..."></textarea></div>
+      <div class="q-block"><label class="q-label" for="svc-housing-missing">Are there other services Julalikari provides not listed on the current website?</label><textarea id="svc-housing-missing" placeholder="Write any missing services here..."></textarea></div>
+    </div>
+
+    <div class="svc-block">
+      <h4>&#128737; Night Patrol</h4>
+      <p class="svc-desc">Our Night Patrol service provides community safety by operating evening and night patrols across Tennant Creek. The patrol offers safe transport, assists vulnerable people, and helps reduce harm in the community.</p>
+      <ul class="svc-bullets"><li>Community safety patrols</li><li>Safe transport home</li><li>Vulnerable persons support</li><li>Harm reduction</li></ul>
+      <div class="q-block"><span class="q-label">Is this information correct?</span><div class="yn-group"><label><input type="radio" name="svc-patrol" value="Yes, it is correct"> Yes, correct</label><label><input type="radio" name="svc-patrol" value="Some of it is wrong"> Some is wrong</label><label><input type="radio" name="svc-patrol" value="Most of it needs updating"> Needs updating</label></div></div>
+      <div class="q-block"><label class="q-label" for="svc-patrol-who">Who is responsible?</label><input type="text" id="svc-patrol-who" placeholder="Name and job title..."></div>
+      <div class="q-block"><label class="q-label" for="svc-patrol-desc">Suggested description (2&ndash;4 sentences)</label><textarea id="svc-patrol-desc" placeholder="Write your suggested description..."></textarea></div>
+      <div class="q-block"><label class="q-label" for="svc-patrol-missing">Missing services?</label><textarea id="svc-patrol-missing" placeholder="Write any missing services here..."></textarea></div>
+    </div>
+
+    <div class="svc-block">
+      <h4>&#129309; Community Services</h4>
+      <p class="svc-desc">We deliver a range of community programs supporting families, youth, and elders. Our services are designed to strengthen community connections and provide culturally appropriate support.</p>
+      <ul class="svc-bullets"><li>Family support programs</li><li>Youth activities</li><li>Elder services</li><li>Community events</li></ul>
+      <div class="q-block"><span class="q-label">Is this information correct?</span><div class="yn-group"><label><input type="radio" name="svc-community" value="Yes, it is correct"> Yes, correct</label><label><input type="radio" name="svc-community" value="Some of it is wrong"> Some is wrong</label><label><input type="radio" name="svc-community" value="Most of it needs updating"> Needs updating</label></div></div>
+      <div class="q-block"><label class="q-label" for="svc-community-who">Who is responsible?</label><input type="text" id="svc-community-who" placeholder="Name and job title..."></div>
+      <div class="q-block"><label class="q-label" for="svc-community-desc">Suggested description</label><textarea id="svc-community-desc" placeholder="Write your suggested description..."></textarea></div>
+      <div class="q-block"><label class="q-label" for="svc-community-missing">Missing services?</label><textarea id="svc-community-missing" placeholder="Write any missing services here..."></textarea></div>
+    </div>
+
+    <div class="svc-block">
+      <h4>&#127891; Employment &amp; Training</h4>
+      <p class="svc-desc">Our employment and training programs help community members build skills and find meaningful work. We offer job readiness support, vocational training, and pathways to employment.</p>
+      <ul class="svc-bullets"><li>Job readiness programs</li><li>Vocational training</li><li>Employment pathways</li><li>Skills development</li></ul>
+      <div class="q-block"><span class="q-label">Is this information correct?</span><div class="yn-group"><label><input type="radio" name="svc-employment" value="Yes, it is correct"> Yes, correct</label><label><input type="radio" name="svc-employment" value="Some of it is wrong"> Some is wrong</label><label><input type="radio" name="svc-employment" value="Most of it needs updating"> Needs updating</label></div></div>
+      <div class="q-block"><label class="q-label" for="svc-employment-who">Who is responsible?</label><input type="text" id="svc-employment-who" placeholder="Name and job title..."></div>
+      <div class="q-block"><label class="q-label" for="svc-employment-desc">Suggested description</label><textarea id="svc-employment-desc" placeholder="Write your suggested description..."></textarea></div>
+      <div class="q-block"><label class="q-label" for="svc-employment-missing">Missing services?</label><textarea id="svc-employment-missing" placeholder="Write any missing services here..."></textarea></div>
+    </div>
+
+    <div class="svc-block">
+      <h4>&#10084; Health &amp; Wellbeing</h4>
+      <p class="svc-desc">Julalikari promotes health and wellbeing through targeted programs addressing chronic disease, mental health, and healthy lifestyles in partnership with health providers.</p>
+      <ul class="svc-bullets"><li>Health promotion</li><li>Chronic disease programs</li><li>Mental health support</li><li>Healthy lifestyle activities</li></ul>
+      <div class="q-block"><span class="q-label">Is this information correct?</span><div class="yn-group"><label><input type="radio" name="svc-health" value="Yes, it is correct"> Yes, correct</label><label><input type="radio" name="svc-health" value="Some of it is wrong"> Some is wrong</label><label><input type="radio" name="svc-health" value="Most of it needs updating"> Needs updating</label></div></div>
+      <div class="q-block"><label class="q-label" for="svc-health-who">Who is responsible?</label><input type="text" id="svc-health-who" placeholder="Name and job title..."></div>
+      <div class="q-block"><label class="q-label" for="svc-health-desc">Suggested description</label><textarea id="svc-health-desc" placeholder="Write your suggested description..."></textarea></div>
+      <div class="q-block"><label class="q-label" for="svc-health-missing">Missing services?</label><textarea id="svc-health-missing" placeholder="Write any missing services here..."></textarea></div>
+    </div>
+
+    <div class="svc-block">
+      <h4>&#128667; Infrastructure &amp; Municipal</h4>
+      <p class="svc-desc">We provide essential infrastructure and municipal services to remote communities and outstations, including road maintenance, waste management, and water supply.</p>
+      <ul class="svc-bullets"><li>Road maintenance</li><li>Waste management</li><li>Water supply</li><li>Essential services</li></ul>
+      <div class="q-block"><span class="q-label">Is this information correct?</span><div class="yn-group"><label><input type="radio" name="svc-infra" value="Yes, it is correct"> Yes, correct</label><label><input type="radio" name="svc-infra" value="Some of it is wrong"> Some is wrong</label><label><input type="radio" name="svc-infra" value="Most of it needs updating"> Needs updating</label></div></div>
+      <div class="q-block"><label class="q-label" for="svc-infra-who">Who is responsible?</label><input type="text" id="svc-infra-who" placeholder="Name and job title..."></div>
+      <div class="q-block"><label class="q-label" for="svc-infra-desc">Suggested description</label><textarea id="svc-infra-desc" placeholder="Write your suggested description..."></textarea></div>
+      <div class="q-block"><label class="q-label" for="svc-infra-missing">Missing services?</label><textarea id="svc-infra-missing" placeholder="Write any missing services here..."></textarea></div>
+    </div>
+
+    <div class="svc-block">
+      <h4>&#128295; CDEP / Work Programs</h4>
+      <p class="svc-desc">Our work programs provide meaningful activities and employment opportunities for community members, building skills and contributing to community development.</p>
+      <ul class="svc-bullets"><li>Structured work activities</li><li>Skills development</li><li>Community projects</li><li>Supervised employment</li></ul>
+      <div class="q-block"><span class="q-label">Is this information correct?</span><div class="yn-group"><label><input type="radio" name="svc-cdep" value="Yes, it is correct"> Yes, correct</label><label><input type="radio" name="svc-cdep" value="Some of it is wrong"> Some is wrong</label><label><input type="radio" name="svc-cdep" value="Most of it needs updating"> Needs updating</label></div></div>
+      <div class="q-block"><label class="q-label" for="svc-cdep-who">Who is responsible?</label><input type="text" id="svc-cdep-who" placeholder="Name and job title..."></div>
+      <div class="q-block"><label class="q-label" for="svc-cdep-desc">Suggested description</label><textarea id="svc-cdep-desc" placeholder="Write your suggested description..."></textarea></div>
+      <div class="q-block"><label class="q-label" for="svc-cdep-missing">Missing services?</label><textarea id="svc-cdep-missing" placeholder="Write any missing services here..."></textarea></div>
+    </div>
+
+    <div class="svc-block">
+      <h4>&#128066; Children &amp; Family</h4>
+      <p class="svc-desc">Dedicated programs supporting children and families through early childhood development, parenting support, and family wellbeing initiatives.</p>
+      <ul class="svc-bullets"><li>Early childhood programs</li><li>Parenting support</li><li>Family wellbeing</li><li>Child safety</li></ul>
+      <div class="q-block"><span class="q-label">Is this information correct?</span><div class="yn-group"><label><input type="radio" name="svc-children" value="Yes, it is correct"> Yes, correct</label><label><input type="radio" name="svc-children" value="Some of it is wrong"> Some is wrong</label><label><input type="radio" name="svc-children" value="Most of it needs updating"> Needs updating</label></div></div>
+      <div class="q-block"><label class="q-label" for="svc-children-who">Who is responsible?</label><input type="text" id="svc-children-who" placeholder="Name and job title..."></div>
+      <div class="q-block"><label class="q-label" for="svc-children-desc">Suggested description</label><textarea id="svc-children-desc" placeholder="Write your suggested description..."></textarea></div>
+      <div class="q-block"><label class="q-label" for="svc-children-missing">Missing services?</label><textarea id="svc-children-missing" placeholder="Write any missing services here..."></textarea></div>
+    </div>
+
+    <div class="svc-block">
+      <h4>&#9878; Governance &amp; Advocacy</h4>
+      <p class="svc-desc">Julalikari advocates for the rights and interests of Aboriginal people in the Barkly Region, engaging with government and stakeholders on policy and service delivery.</p>
+      <ul class="svc-bullets"><li>Community advocacy</li><li>Government engagement</li><li>Policy input</li><li>Rights protection</li></ul>
+      <div class="q-block"><span class="q-label">Is this information correct?</span><div class="yn-group"><label><input type="radio" name="svc-governance" value="Yes, it is correct"> Yes, correct</label><label><input type="radio" name="svc-governance" value="Some of it is wrong"> Some is wrong</label><label><input type="radio" name="svc-governance" value="Most of it needs updating"> Needs updating</label></div></div>
+      <div class="q-block"><label class="q-label" for="svc-governance-who">Who is responsible?</label><input type="text" id="svc-governance-who" placeholder="Name and job title..."></div>
+      <div class="q-block"><label class="q-label" for="svc-governance-desc">Suggested description</label><textarea id="svc-governance-desc" placeholder="Write your suggested description..."></textarea></div>
+      <div class="q-block"><label class="q-label" for="svc-governance-missing">Missing services?</label><textarea id="svc-governance-missing" placeholder="Write any missing services here..."></textarea></div>
+    </div>
+
+    <div class="nav-bar"><span class="nav-counter">Section 2 of 5</span><div class="nav-btns"><button type="button" class="btn-back" onclick="goTo('staff',0)">&#8592; Back</button><button type="button" class="btn-next" onclick="goTo('staff',2)">Next &#8594;</button></div></div>
+  </div>
+
+  <div id="staff-s3" style="display:none;" class="section">
+    <h2>&#128187; Section 3 &mdash; How the Website Should Work</h2>
+
+    <div class="q-block">
+      <span class="q-label">3.1 &nbsp; Look and Feel &mdash; Rate how important these things are for the new website:</span>
+      <div style="margin-top:12px;">
+        <div style="margin-bottom:16px;"><div style="font-weight:600;margin-bottom:5px;">Easy to read text (big enough, clear)</div><div class="star-rating" id="s-look-1-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div><div class="star-labels"><span>Not important</span><span>Very important</span></div><input type="hidden" id="s-look-1" value="0"></div>
+        <div style="margin-bottom:16px;"><div style="font-weight:600;margin-bottom:5px;">Works on mobile phones</div><div class="star-rating" id="s-look-2-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div><div class="star-labels"><span>Not important</span><span>Very important</span></div><input type="hidden" id="s-look-2" value="0"></div>
+        <div style="margin-bottom:16px;"><div style="font-weight:600;margin-bottom:5px;">Easy to find information quickly</div><div class="star-rating" id="s-look-3-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div><div class="star-labels"><span>Not important</span><span>Very important</span></div><input type="hidden" id="s-look-3" value="0"></div>
+        <div style="margin-bottom:16px;"><div style="font-weight:600;margin-bottom:5px;">Photos of real Julalikari people and programs</div><div class="star-rating" id="s-look-4-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div><div class="star-labels"><span>Not important</span><span>Very important</span></div><input type="hidden" id="s-look-4" value="0"></div>
+        <div style="margin-bottom:16px;"><div style="font-weight:600;margin-bottom:5px;">Reflects Aboriginal culture and identity</div><div class="star-rating" id="s-look-5-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div><div class="star-labels"><span>Not important</span><span>Very important</span></div><input type="hidden" id="s-look-5" value="0"></div>
+        <div><div style="font-weight:600;margin-bottom:5px;">Professional and trustworthy appearance</div><div class="star-rating" id="s-look-6-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div><div class="star-labels"><span>Not important</span><span>Very important</span></div><input type="hidden" id="s-look-6" value="0"></div>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">3.2 &nbsp; Navigation &mdash; How should the website be organised? (Tick all that apply)</span>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" class="s-nav" value="By service type (e.g. Housing, Health, Employment)"> By service type (e.g. Housing, Health, Employment)</label>
+        <label class="check-item"><input type="checkbox" class="s-nav" value="By who you are (e.g. Community member, Job seeker, Partner)"> By who you are (e.g. Community member, Job seeker, Partner)</label>
+        <label class="check-item"><input type="checkbox" class="s-nav" value="By topic (e.g. Housing, Training, Safety)"> By topic (e.g. Housing, Training, Safety)</label>
+        <label class="check-item"><input type="checkbox" class="s-nav" value="Simple menu with few options"> Simple menu with few options</label>
+        <label class="check-item"><input type="checkbox" class="s-nav" value="Search bar so people can search for anything"> Search bar so people can search for anything</label>
+        <label class="check-item"><input type="checkbox" class="s-nav" value="Quick links on the home page to popular pages"> Quick links on the home page to popular pages</label>
+      </div>
+      <textarea id="s-nav-other" placeholder="Other ideas for navigation..." style="margin-top:10px;"></textarea>
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">3.3 &nbsp; What are the most important pages? Rank your top 5 (write 1&ndash;5, where 1 = most important):</span>
+      <div class="rank-grid" style="margin-top:10px;">
+        <div class="rank-row"><label>Home page / Welcome</label><input type="number" id="rank-home" min="1" max="5" placeholder="#" style="width:70px;"></div>
+        <div class="rank-row"><label>Services overview</label><input type="number" id="rank-services" min="1" max="5" placeholder="#" style="width:70px;"></div>
+        <div class="rank-row"><label>Contact Us / How to reach us</label><input type="number" id="rank-contact" min="1" max="5" placeholder="#" style="width:70px;"></div>
+        <div class="rank-row"><label>News and Events</label><input type="number" id="rank-news" min="1" max="5" placeholder="#" style="width:70px;"></div>
+        <div class="rank-row"><label>Job vacancies</label><input type="number" id="rank-jobs" min="1" max="5" placeholder="#" style="width:70px;"></div>
+        <div class="rank-row"><label>About Julalikari / Our Story</label><input type="number" id="rank-about" min="1" max="5" placeholder="#" style="width:70px;"></div>
+        <div class="rank-row"><label>Housing information</label><input type="number" id="rank-housing" min="1" max="5" placeholder="#" style="width:70px;"></div>
+        <div class="rank-row"><label>Community programs</label><input type="number" id="rank-programs" min="1" max="5" placeholder="#" style="width:70px;"></div>
+        <div class="rank-row"><label>Annual Reports</label><input type="number" id="rank-reports" min="1" max="5" placeholder="#" style="width:70px;"></div>
+        <div class="rank-row"><label>Online forms</label><input type="number" id="rank-forms" min="1" max="5" placeholder="#" style="width:70px;"></div>
+      </div>
+    </div>
+
+    <div class="nav-bar"><span class="nav-counter">Section 3 of 5</span><div class="nav-btns"><button type="button" class="btn-back" onclick="goTo('staff',1)">&#8592; Back</button><button type="button" class="btn-next" onclick="goTo('staff',3)">Next &#8594;</button></div></div>
+  </div>
+
+  <div id="staff-s4" style="display:none;" class="section">
+    <h2>&#9881; Section 4 &mdash; Staff Features on the New Website</h2>
+    <p class="section-intro">The new website will have a staff area where employees can manage content. We want to know what you need.</p>
+
+    <div class="q-block">
+      <span class="q-label">4.1 &nbsp; What should staff be able to do on the website? (Tick all that are important)</span>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="Add and update news stories"> Add and update news stories</label>
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="Update service descriptions"> Update service descriptions</label>
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="Post job vacancies"> Post job vacancies</label>
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="Manage community events calendar"> Manage community events calendar</label>
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="Upload documents and reports"> Upload documents and reports</label>
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="Respond to contact form enquiries"> Respond to contact form enquiries</label>
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="Update staff contact details"> Update staff contact details</label>
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="Add photos to the website"> Add photos to the website</label>
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="Manage housing vacancy listings"> Manage housing vacancy listings</label>
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="Create and publish forms (e.g. applications)"> Create and publish forms (e.g. applications)</label>
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="View analytics (how many people visit)"> View analytics (how many people visit)</label>
+        <label class="check-item"><input type="checkbox" class="s-staff-feat" value="Send email updates to community members"> Send email updates to community members</label>
+      </div>
+      <textarea id="s-staff-feat-other" placeholder="Other things staff should be able to do..." style="margin-top:10px;"></textarea>
+    </div>
+
+    <div class="q-block">
+      <label class="q-label" for="s-manage-priority">4.2 &nbsp; What is the most important thing for you personally to be able to manage on the website?</label>
+      <textarea id="s-manage-priority" placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">4.3 &nbsp; How confident are you using websites and online tools?</span>
+      <div class="star-rating" id="s-confidence-stars"><span class="star" data-v="1">&#9733;</span><span class="star" data-v="2">&#9733;</span><span class="star" data-v="3">&#9733;</span><span class="star" data-v="4">&#9733;</span><span class="star" data-v="5">&#9733;</span></div>
+      <div class="star-labels"><span>Not confident at all</span><span>Very confident</span></div>
+      <input type="hidden" id="s-confidence" value="0">
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">4.4 &nbsp; Would you need training to manage website content?</span>
+      <div class="yn-group">
+        <label><input type="radio" name="s-training" value="Yes, I would need training"> Yes, I would need training</label>
+        <label><input type="radio" name="s-training" value="No, I am comfortable already"> No, comfortable already</label>
+        <label><input type="radio" name="s-training" value="Maybe — depends on complexity"> Maybe &mdash; depends on complexity</label>
+      </div>
+    </div>
+
+    <div class="q-block">
+      <span class="q-label">4.5 &nbsp; What format of training would work best for you?</span>
+      <div class="check-group">
+        <label class="check-item"><input type="checkbox" class="s-training-format" value="One-on-one training with a trainer"> One-on-one training with a trainer</label>
+        <label class="check-item"><input type="checkbox" class="s-training-format" value="Small group training (3-6 people)"> Small group training (3&ndash;6 people)</label>
+        <label class="check-item"><input type="checkbox" class="s-training-format" value="Written step-by-step guide"> Written step-by-step guide</label>
+        <label class="check-item"><input type="checkbox" class="s-training-format" value="Short video tutorial"> Short video tutorial</label>
+        <label class="check-item"><input type="checkbox" class="s-training-format" value="Online help built into the website"> Online help built into the website</label>
+      </div>
+    </div>
+
+    <div class="nav-bar"><span class="nav-counter">Section 4 of 5</span><div class="nav-btns"><button type="button" class="btn-back" onclick="goTo('staff',2)">&#8592; Back</button><button type="button" class="btn-next" onclick="goTo('staff',4)">Next &#8594;</button></div></div>
+  </div>
+
+  <div id="staff-s5" style="display:none;" class="section">
+    <h2>&#128172; Section 5 &mdash; Your Final Thoughts</h2>
+
+    <div class="q-block">
+      <label class="q-label" for="s-one-thing">5.1 &nbsp; What is the ONE most important thing the new website must do well?</label>
+      <textarea id="s-one-thing" placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <div class="q-block">
+      <label class="q-label" for="s-frustration">5.2 &nbsp; Is there anything about the current website that frustrates you or does not work well?</label>
+      <textarea id="s-frustration" placeholder="Write your answer here..."></textarea>
+    </div>
+
+    <div class="q-block">
+      <label class="q-label" for="s-final">5.3 &nbsp; Anything else you would like to tell us?</label>
+      <textarea id="s-final" placeholder="Write anything else here..."></textarea>
+    </div>
+
+    <div class="nav-bar"><span class="nav-counter">Section 5 of 5</span><div class="nav-btns"><button type="button" class="btn-back" onclick="goTo('staff',3)">&#8592; Back</button><button type="button" class="submit-btn" id="staff-submit">&#10003; &nbsp; Submit Staff Survey</button></div></div>
+  </div>
+
+</div>
+<footer>
+  <p>Julalikari Council Aboriginal Corporation &mdash; julalikari.org.au</p>
+  <p style="margin-top:4px;">We acknowledge the Warumungu people as Traditional Custodians of the lands on which we work.</p>
+</footer>
+
+<script>
+var SUBMIT_URL='https://julalikari-agent-7dd55579.base44.app/functions/submitSurvey';
+var BOARD=['board-s1','board-s2','board-s3','board-s4'];
+var STAFF=['staff-s1','staff-s2','staff-s3','staff-s4','staff-s5'];
+var ALL=BOARD.concat(STAFF);
+
+function hide(id){var e=document.getElementById(id);if(e)e.style.display='none';}
+function show(id){var e=document.getElementById(id);if(e)e.style.display='block';}
+function val(id){var e=document.getElementById(id);return e?e.value:'';}
+function radioVal(n){var e=document.querySelector('input[name="'+n+'"]:checked');return e?e.value:'';}
+function getChecked(cls){return Array.from(document.querySelectorAll('.'+cls+':checked')).map(function(e){return e.value;});}
+
+document.getElementById('btn-board').onclick=function(){startSurvey('board');};
+document.getElementById('btn-staff').onclick=function(){startSurvey('staff');};
+document.getElementById('board-submit').onclick=function(){doSubmit('board');};
+document.getElementById('staff-submit').onclick=function(){doSubmit('staff');};
+
+// Wire all star ratings automatically
+document.querySelectorAll('.star-rating').forEach(function(container){
+  var stars=container.querySelectorAll('.star');
+  var hiddenId=container.id.replace('-stars','');
+  var hidden=document.getElementById(hiddenId);
+  stars.forEach(function(s){
+    s.onclick=function(){
+      var v=parseInt(this.getAttribute('data-v'));
+      if(hidden)hidden.value=v;
+      stars.forEach(function(x){x.classList.toggle('lit',parseInt(x.getAttribute('data-v'))<=v);});
+    };
+  });
+});
+
+function startSurvey(role){
+  document.querySelectorAll('.role-btn').forEach(function(b){b.classList.remove('selected');});
+  document.getElementById('btn-'+role).classList.add('selected');
+  show('aboutYou');
+  ALL.forEach(hide);
+  show(role+'-s1');
+  document.getElementById('aboutYou').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function goTo(role,idx){
+  var sections=role==='board'?BOARD:STAFF;
+  sections.forEach(hide);
+  show(sections[idx]);
+  window.scrollTo({top:document.getElementById(sections[idx]).offsetTop-20,behavior:'smooth'});
+}
+
+function doSubmit(role){
+  var btn=document.getElementById(role+'-submit');
+  btn.disabled=true;btn.textContent='Submitting...';
+  var answers={};
+  if(role==='board'){
+    answers={
+      colours:{red:val('b-col-red'),earth:val('b-col-earth'),bw:val('b-col-bw')},
+      colours_other:val('b-colours-other'),
+      images:getChecked('b-images'),images_other:val('b-images-other'),
+      tagline:radioVal('b-tagline'),tagline_suggest:val('b-tagline-suggest'),
+      pages_keep:{story:radioVal('p-story'),whatwedo:radioVal('p-whatwedo'),housing:radioVal('p-housing'),ldm:radioVal('p-ldm'),news:radioVal('p-news'),contact:radioVal('p-contact')},
+      pages_keep_notes:{story:val('p-story-note'),whatwedo:val('p-whatwedo-note'),housing:val('p-housing-note'),ldm:val('p-ldm-note'),news:val('p-news-note'),contact:val('p-contact-note')},
+      new_pages:getChecked('b-new-pages'),new_pages_other:val('b-new-pages-other'),
+      audience:getChecked('b-audience'),
+      accuracy:{history:val('b-acc-history'),services:val('b-acc-services'),culture:val('b-acc-culture')},
+      culture_missing:val('b-culture-missing'),
+      culture_include:getChecked('b-culture-inc'),culture_other:val('b-culture-other'),
+      culture_avoid:val('b-culture-avoid'),
+      language:radioVal('b-language'),language_other:val('b-language-other'),
+      importance:val('b-importance'),
+      final_thoughts:val('b-final')
+    };
+  }else{
+    answers={
+      job_title:val('s-jobtitle'),
+      team:getChecked('s-team'),team_other:val('s-team-other'),
+      tenure:radioVal('s-tenure'),
+      services:{
+        housing:{status:radioVal('svc-housing'),who:val('svc-housing-who'),desc:val('svc-housing-desc'),missing:val('svc-housing-missing')},
+        patrol:{status:radioVal('svc-patrol'),who:val('svc-patrol-who'),desc:val('svc-patrol-desc'),missing:val('svc-patrol-missing')},
+        community:{status:radioVal('svc-community'),who:val('svc-community-who'),desc:val('svc-community-desc'),missing:val('svc-community-missing')},
+        employment:{status:radioVal('svc-employment'),who:val('svc-employment-who'),desc:val('svc-employment-desc'),missing:val('svc-employment-missing')},
+        health:{status:radioVal('svc-health'),who:val('svc-health-who'),desc:val('svc-health-desc'),missing:val('svc-health-missing')},
+        infra:{status:radioVal('svc-infra'),who:val('svc-infra-who'),desc:val('svc-infra-desc'),missing:val('svc-infra-missing')},
+        cdep:{status:radioVal('svc-cdep'),who:val('svc-cdep-who'),desc:val('svc-cdep-desc'),missing:val('svc-cdep-missing')},
+        children:{status:radioVal('svc-children'),who:val('svc-children-who'),desc:val('svc-children-desc'),missing:val('svc-children-missing')},
+        governance:{status:radioVal('svc-governance'),who:val('svc-governance-who'),desc:val('svc-governance-desc'),missing:val('svc-governance-missing')}
+      },
+      look_feel:{text:val('s-look-1'),mobile:val('s-look-2'),findinfo:val('s-look-3'),photos:val('s-look-4'),culture:val('s-look-5'),professional:val('s-look-6')},
+      navigation:getChecked('s-nav'),navigation_other:val('s-nav-other'),
+      page_ranking:{home:val('rank-home'),services:val('rank-services'),contact:val('rank-contact'),news:val('rank-news'),jobs:val('rank-jobs'),about:val('rank-about'),housing:val('rank-housing'),programs:val('rank-programs'),reports:val('rank-reports'),forms:val('rank-forms')},
+      staff_features:getChecked('s-staff-feat'),staff_feat_other:val('s-staff-feat-other'),
+      manage_priority:val('s-manage-priority'),
+      confidence:val('s-confidence'),
+      training_needed:radioVal('s-training'),
+      training_format:getChecked('s-training-format'),
+      one_thing:val('s-one-thing'),
+      frustration:val('s-frustration'),
+      final_thoughts:val('s-final')
+    };
+  }
+  fetch(SUBMIT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({respondent_name:val('f-name'),respondent_email:val('f-email'),respondent_role:role,answers:answers})})
+  .then(function(res){return res.json().then(function(d){return{ok:res.ok,d:d};});})
+  .then(function(r){
+    var msg=document.getElementById('msg');
+    if(r.ok){
+      msg.className='msg success';
+      msg.textContent='Thank you — your survey has been submitted. Your input is greatly appreciated.';
+      ALL.forEach(hide);hide('aboutYou');hide('roleBox');
+    }else{
+      msg.className='msg error';
+      msg.textContent='Error: '+(r.d.error||'Something went wrong. Please try again.');
+      btn.disabled=false;btn.textContent=role==='board'?'Submit Board Member Survey':'Submit Staff Survey';
+    }
+    msg.scrollIntoView({behavior:'smooth'});
+  }).catch(function(){
+    var msg=document.getElementById('msg');
+    msg.className='msg error';msg.textContent='Connection error. Please check your internet and try again.';
+    msg.scrollIntoView({behavior:'smooth'});btn.disabled=false;
+  });
+}
+</script>
+</body>
+</html>
